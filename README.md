@@ -93,20 +93,20 @@ The app starts on `http://localhost:8080` by default.
 
 ## API Endpoints
 
-### Tasks — `/api/task`
+### Tasks — `/api/tasks`
 
 | Method   | Path             | Description                |
 |----------|------------------|----------------------------|
-| `POST`   | `/api/task`      | Create a task              |
-| `GET`    | `/api/task`      | List all tasks             |
-| `GET`    | `/api/task/{id}` | Get a task by ID           |
-| `PUT`    | `/api/task/{id}` | Update a task              |
-| `DELETE` | `/api/task/{id}` | Delete a task              |
+| `POST`   | `/api/tasks`      | Create a task              |
+| `GET`    | `/api/tasks`      | List all tasks             |
+| `GET`    | `/api/tasks/{id}` | Get a task by ID           |
+| `PUT`    | `/api/tasks/{id}` | Update a task              |
+| `DELETE` | `/api/tasks/{id}` | Delete a task              |
 
 **Example — create a task**
 
 ```bash
-curl -X POST http://localhost:8080/api/task \
+curl -X POST http://localhost:8080/api/tasks \
   -H "Content-Type: application/json" \
   -d '{
     "user_id": 1,
@@ -122,13 +122,13 @@ curl -X POST http://localhost:8080/api/task \
 
 | Method | Path         | Description       |
 |--------|--------------|-------------------|
-| `POST` | `/api/user`  | Create a user     |
-| `GET`  | `/api/user`  | List all users    |
+| `POST` | `/api/users`  | Create a user     |
+| `GET`  | `/api/users`  | List all users    |
 
 **Example — create a user**
 
 ```bash
-curl -X POST http://localhost:8080/api/user \
+curl -X POST http://localhost:8080/api/users \
   -H "Content-Type: application/json" \
   -d '{
     "user_name": "harshal",
