@@ -3,7 +3,9 @@ package com.todoapp.backend.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 
+@Data
 public class TaskDto {
 
     @JsonProperty("task_id")
@@ -30,10 +32,5 @@ public class TaskDto {
 
     @JsonProperty("due_date")
     private String dueDate;
-
-
-
-
-
 
 }

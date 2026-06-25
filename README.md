@@ -141,3 +141,13 @@ curl -X POST http://localhost:8080/api/users \
 
 - Security is currently disabled — `SecurityConfig` is commented out, so all endpoints are open. Add authentication before deploying.
 - `ddl-auto=update` lets Hibernate manage the schema during development. Use a migration tool (e.g. Flyway/Liquibase) for production.
+
+- those mapStatus and mapPriority methods are actually invoked depends on how MapStruct resolves type conversions
+MapStruct automatically looks for matching methods in the mapper interface .
+In your case:
+Task.status is of type TaskStatus (enum).
+TaskDto.status is of type String.
+Since the types don’t match, MapStruct searches for a conversion method.
+It finds default String mapStatus(TaskStatus status) and default TaskStatus mapStatus(String status) in the same interface.
+✅ These methods will be used automatically for the mapping.
+Same logic applies for priority enum.
