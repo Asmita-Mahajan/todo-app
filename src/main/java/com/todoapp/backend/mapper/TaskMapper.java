@@ -61,7 +61,7 @@ public interface TaskMapper {
         return priority != null ? priority.name() : null;
     }
 
-//    DTO → Entity
+//    DTO → Entity enum conversion
     default TaskPriority mapPriority(String priority) {
         return priority != null ? TaskPriority.valueOf(priority) : null;
 //        return priority != null ? TaskPriority.valueOf(priority.toUpperCase()) : null;

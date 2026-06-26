@@ -1,6 +1,7 @@
 package com.todoapp.backend.controller;
 
 import com.todoapp.backend.dto.UserDto;
+import com.todoapp.backend.model.User;
 import com.todoapp.backend.service.TaskService;
 import com.todoapp.backend.service.UserService;
 import jakarta.validation.Valid;
@@ -30,6 +31,23 @@ public class UserController {
         List<UserDto> users=userService.getAllUsers();
         return ResponseEntity.ok().body(users);
 
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDto> getUserById(@PathVariable long id){
+        UserDto userDto=userService.getUsersById(id);
+        return ResponseEntity.ok().body(userDto);
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDto> updateUserById(@PathVariable long id, @Valid @RequestBody UserDto userdto){
+        UserDto updatedDto= userService.updateUserById(id, userdto);
+        return ResponseEntity.ok().body(updatedDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<UserDto> deleteUserById(@PathVariable long id){
+        UserDto userDto=userService.getUsersById(id);
+        userService.deleteUserById(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

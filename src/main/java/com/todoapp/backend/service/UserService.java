@@ -29,4 +29,23 @@ public class UserService {
         return userMapper.toDtoList(users);
     }
 
+    public UserDto getUsersById(long id){
+        User user= userRepository.findById(id).orElseThrow(()->new RuntimeException("User not found"));
+        return userMapper.toDto(user);
+
+    }
+    public UserDto updateUserById( long id, UserDto userDto){
+        User entity= userRepository.findById(id).orElseThrow(()->new RuntimeException("User not found"));
+        userMapper.updateEntityFromDto(userDto,entity);
+        userRepository.save(entity);
+        return userMapper.toDto(entity);
+    }
+
+    public Void deleteUserById(long id){
+//        User entity= userRepository.findById(id).orElseThrow(()->new RuntimeException("User not found"));
+//        userRepository.delete(entity);
+
+        userRepository.deleteById(id);
+        return null;
+    }
 }
