@@ -1,6 +1,7 @@
 package com.todoapp.backend.service;
 
 import com.todoapp.backend.dto.TaskDto;
+import com.todoapp.backend.exception.TaskNotFoundException;
 import com.todoapp.backend.mapper.TaskMapper;
 import com.todoapp.backend.model.Task;
 import com.todoapp.backend.repository.TaskRepository;
@@ -34,7 +35,8 @@ public class TaskService {
 
     public TaskDto updateTask(long id, TaskDto taskDto) {
         Task entity = taskRepository.findById(id)
-                .orElseThrow(()->new RuntimeException("Task not found"));
+//                .orElseThrow(()->new RuntimeException("Task not found"));
+                .orElseThrow(() -> new TaskNotFoundException("Task with id " + id + " not found"));
         taskMapper.updateEntityFromDto(taskDto, entity);
         taskRepository.save(entity);
         return  taskMapper.toDto(entity);

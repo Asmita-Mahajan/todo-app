@@ -1,6 +1,7 @@
 package com.todoapp.backend.service;
 
 import com.todoapp.backend.dto.UserDto;
+import com.todoapp.backend.exception.UserNotFoundException;
 import com.todoapp.backend.mapper.UserMapper;
 import com.todoapp.backend.model.User;
 import com.todoapp.backend.repository.UserRepository;
@@ -30,12 +31,16 @@ public class UserService {
     }
 
     public UserDto getUsersById(long id){
-        User user= userRepository.findById(id).orElseThrow(()->new RuntimeException("User not found"));
+        User user= userRepository.findById(id)
+//                .orElseThrow(()->new RuntimeException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException("User with id " + id + " not found"));
         return userMapper.toDto(user);
 
     }
     public UserDto updateUserById( long id, UserDto userDto){
-        User entity= userRepository.findById(id).orElseThrow(()->new RuntimeException("User not found"));
+        User entity= userRepository.findById(id)
+//                .orElseThrow(()->new RuntimeException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException("User with id " + id + " not found"));
         userMapper.updateEntityFromDto(userDto,entity);
         userRepository.save(entity);
         return userMapper.toDto(entity);
@@ -44,7 +49,9 @@ public class UserService {
     public Void deleteUserById(long id){
 //        User entity= userRepository.findById(id).orElseThrow(()->new RuntimeException("User not found"));
 //        userRepository.delete(entity);
-
+        if (!userRepository.existsById(id)) {
+            throw new UserNotFoundException("User with id " + id + " not found");
+        }
         userRepository.deleteById(id);
         return null;
     }
